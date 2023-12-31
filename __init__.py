@@ -2,7 +2,7 @@ bl_info = {
     "name": "mmd_tools_rigid_body_collision_optimize", 
     "description": "Put rigid bodys into appropriate collision collection in order to avoid collision between selected rigid bodys.",
     "author": "rint",
-    "version": (0, 0, 1),
+    "version": (0, 0, 2),
     "blender": (3, 0, 0),
     "location": "View3D > Sidebar > MMD Tools Panel",
     "category": "Object",
@@ -14,7 +14,7 @@ import mmd_tools
 from mmd_tools_rigid_body_collision_optimize.utils import *
 
 # Define a property group to store the custom toggles
-class Test5_PG(bpy.types.PropertyGroup):
+class mmd_tools_rigid_body_collision_optimize_PG(bpy.types.PropertyGroup):
     #for i in range(20):
     #    exec(f"custom_toggle_{i}: bpy.props.BoolProperty(name='{i}', default=True)")
     
@@ -35,7 +35,7 @@ class Test5_PG(bpy.types.PropertyGroup):
         for i in element_list:
             self.custom_toggles[i] = True
     
-class Test5_Panel1(bpy.types.Panel):
+class mmd_tools_rigid_body_collision_optimize_Panel(bpy.types.Panel):
     bl_label = "Collision Collection Interleave"
     bl_idname = "PT_CollisionCollectionInterleave"
     bl_space_type = "VIEW_3D"
@@ -57,9 +57,9 @@ class Test5_Panel1(bpy.types.Panel):
         row.operator_context = 'EXEC_DEFAULT'
         op = row.operator('mmd_tools.rigid_body_select', text='Select', icon='RESTRICT_SELECT_OFF')
         row.separator()
-        op = row.operator('test5_addon.test5_button0', text='Clear')
-        op = row.operator('test5_addon.test5_button1', text='Interleave')
-        op = row.operator('test5_addon.test5_button2', text='Put into All')
+        op = row.operator('mmd_tools_rigid_body_collision_optimize.clear', text='Clear')
+        op = row.operator('mmd_tools_rigid_body_collision_optimize.interleave', text='Interleave')
+        op = row.operator('mmd_tools_rigid_body_collision_optimize.put_into_all', text='Put into All')
         
         # Use the property group to draw the toggles
         col = self.layout.column(align=True)
@@ -78,8 +78,8 @@ class Test5_Panel1(bpy.types.Panel):
         for i in element_list:
             grid.prop(test5_property_group, 'custom_toggles', index=i, text='', toggle=True)
 
-class Test5_Button0(bpy.types.Operator):
-    bl_idname = 'test5_addon.test5_button0'
+class mmd_tools_rigid_body_collision_optimize_Button0(bpy.types.Operator):
+    bl_idname = 'mmd_tools_rigid_body_collision_optimize.clear'
     bl_label = 'Collision Collection Clear'
     bl_description = 'Unassign rigid body to all collection.'
     bl_options = {'REGISTER', 'UNDO'}
@@ -104,8 +104,8 @@ class Test5_Button0(bpy.types.Operator):
 
         return {'FINISHED'}
 
-class Test5_Button1(bpy.types.Operator):
-    bl_idname = 'test5_addon.test5_button1'
+class mmd_tools_rigid_body_collision_optimize_Button1(bpy.types.Operator):
+    bl_idname = 'mmd_tools_rigid_body_collision_optimize.interleave'
     bl_label = 'Collision Collection Interleave'
     bl_description = 'Put rigid bodys into appropriate collision collection in order to avoid collision between selected rigid bodys.'
     bl_options = {'REGISTER', 'UNDO'}
@@ -132,8 +132,8 @@ class Test5_Button1(bpy.types.Operator):
 
         return {'FINISHED'}
 
-class Test5_Button2(bpy.types.Operator):
-    bl_idname = 'test5_addon.test5_button2'
+class mmd_tools_rigid_body_collision_optimize_Button2(bpy.types.Operator):
+    bl_idname = 'mmd_tools_rigid_body_collision_optimize.put_into_all'
     bl_label = 'Collision Collection Put into All'
     bl_description = 'Put rigid bodys into all available collections(selected).'
     bl_options = {'REGISTER', 'UNDO'}
@@ -161,17 +161,17 @@ class Test5_Button2(bpy.types.Operator):
         return {'FINISHED'}
 
 classes = (
-    Test5_PG,
-	Test5_Panel1,
-    Test5_Button0,
-    Test5_Button1,
-    Test5_Button2
+    mmd_tools_rigid_body_collision_optimize_PG,
+	mmd_tools_rigid_body_collision_optimize_Panel,
+    mmd_tools_rigid_body_collision_optimize_Button0,
+    mmd_tools_rigid_body_collision_optimize_Button1,
+    mmd_tools_rigid_body_collision_optimize_Button2
 )
 
 def register():
     for cls in classes:
         bpy.utils.register_class(cls)
-    bpy.types.Scene.test5_property_group = bpy.props.PointerProperty(type=Test5_PG)
+    bpy.types.Scene.test5_property_group = bpy.props.PointerProperty(type=mmd_tools_rigid_body_collision_optimize_PG)
     # 翻譯
     from mmd_tools_rigid_body_collision_optimize.m17n import translation_dict
     bpy.app.translations.register(bl_info['name'], translation_dict)
