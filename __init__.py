@@ -2,8 +2,8 @@ bl_info = {
     "name": "mmd_tools_rigid_body_collision_optimize", 
     "description": "Put rigid bodys into appropriate collision collection in order to avoid collision between selected rigid bodys.",
     "author": "rint",
-    "version": (0, 0, 2),
-    "blender": (3, 0, 0),
+    "version": (0, 0, 3),
+    "blender": (2, 93, 18),
     "location": "View3D > Sidebar > MMD Tools Panel",
     "category": "Object",
 }
@@ -35,9 +35,8 @@ class mmd_tools_rigid_body_collision_optimize_PG(bpy.types.PropertyGroup):
         for i in element_list:
             self.custom_toggles[i] = True
     
-class mmd_tools_rigid_body_collision_optimize_Panel(bpy.types.Panel):
+class PANEL1_PT_mmd_tools_rigid_body_collision_optimize(bpy.types.Panel):
     bl_label = "Collision Collection Interleave"
-    bl_idname = "PT_CollisionCollectionInterleave"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "MMD"
@@ -162,7 +161,7 @@ class mmd_tools_rigid_body_collision_optimize_Button2(bpy.types.Operator):
 
 classes = (
     mmd_tools_rigid_body_collision_optimize_PG,
-	mmd_tools_rigid_body_collision_optimize_Panel,
+	PANEL1_PT_mmd_tools_rigid_body_collision_optimize,
     mmd_tools_rigid_body_collision_optimize_Button0,
     mmd_tools_rigid_body_collision_optimize_Button1,
     mmd_tools_rigid_body_collision_optimize_Button2
